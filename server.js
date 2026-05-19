@@ -2,8 +2,16 @@ const express = require('express');
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
+
+// Ensure .data directory exists
+const dataDir = '.data';
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir, { recursive: true });
+}
+
 const adapter = new FileSync('.data/db.json');
 const db = low(adapter);
 
